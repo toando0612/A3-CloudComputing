@@ -34,23 +34,7 @@ if (!$_SESSION['is_logged_in']) {
 <div class="jumpotron-fluid">
     <img src="assets/banner.png" class="img-fluid" alt="">
 </div>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top justify-content-center">
-    <a class="navbar-brand" href="index.php"><img src="assets/logo.png" width="30" height="30" alt=""></a>
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="add_a_word.php">Add a word</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="manage_words.php">Manage words</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="learn_a_word.php">Learn a word</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="logout.php">Sign out</a>
-        </li>
-    </ul>
-</nav>
+<?php require 'navBar.php'?>
 <br>
         <?php
             $conn = mysqli_connect("s3618861-db.cavq78vobfpn.ap-southeast-1.rds.amazonaws.com", "imhikarucat", "12345abcde", "tuanle");

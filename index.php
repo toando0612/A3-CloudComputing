@@ -28,34 +28,7 @@ if (!$_SESSION['is_logged_in']) {
 <div class="jumpotron-fluid">
     <img src="assets/banner.png" class="img-fluid" alt="">
 </div>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top justify-content-center">
-    <a class="navbar-brand" href="index.php"><img src="assets/logo.png" width="30" height="30" alt=""></a>
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="add_a_word.php">Add a word</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="manage_words.php">Manage words</a>
-        </li>
-        <li class="nav-item">
-            <?php
-                if ($_SESSION['is_admin_logged_in']) {
-                    echo "<a class='nav-link' href='add_an_user.php'>Add an user</a>";
-                } else {
-                    echo "<a class='nav-link' href='learn_a_word.php'>Learn a word</a>";
-                }
-            ?>
-        </li>
-            <?php
-                if ($_SESSION['is_admin_logged_in']) {
-                    echo "<li class='nav-item'><a class='nav-link' href='manage_users.php'>Manage users</a></li>";
-                }
-            ?>
-        <li class="nav-item">
-            <a class="nav-link" href="logout.php">Sign out</a>
-        </li>
-    </ul>
-</nav>
+<?php require 'navBar.php'?>
 <br>
 <div class="container">
     <h1 class="display-4">Assignment 2 - Build a scalable app on Clouds</h1>
