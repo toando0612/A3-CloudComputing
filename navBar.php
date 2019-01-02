@@ -13,7 +13,16 @@
             <?php if ($_SESSION['is_admin_logged_in']): ?>
                     <a <?php if ($_SERVER['REQUEST_URI']== "/add_an_user.php"){echo "class='nav-link active'";}else{echo "class='nav-link'";}?> href="add_an_user.php">Add an user</a>
             <?php else : ?>
-                    <a <?php if ($_SERVER['REQUEST_URI']== "/learn_a_word.php"){echo "class='nav-link active'";}else{echo "class='nav-link'";}?> href="learn_a_word.php">Learn a word</a>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Learn a Word
+                    </button>
+                    <div class="dropdown-menu">
+<!--                        <a --><?php //if ($_SERVER['REQUEST_URI']== "/learn_a_word.php"){echo "class='nav-link active'";}else{echo "class='nav-link'";}?><!-- href="learn_a_word.php">Learn a word</a>-->
+                        <a class="dropdown-item" href="learn_a_word_ran.php">Random</a>
+                        <a class="dropdown-item" href="learn_a_word.php">Sequence</a>
+                    </div>
+                </div>
             <?php endif; ?>
         </li>
         <li class="nav-item">
