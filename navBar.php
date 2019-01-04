@@ -18,9 +18,9 @@
                         Learn a Word
                     </button>
                     <div class="dropdown-menu">
-<!--                        <a --><?php //if ($_SERVER['REQUEST_URI']== "/learn_a_word.php"){echo "class='nav-link active'";}else{echo "class='nav-link'";}?><!-- href="learn_a_word.php">Learn a word</a>-->
+<!--                        <a --><?php //if ($_SERVER['REQUEST_URI']== "/learn_a_word_seq.php"){echo "class='nav-link active'";}else{echo "class='nav-link'";}?><!-- href="learn_a_word_seq.php">Learn a word</a>-->
                         <a class="dropdown-item" href="learn_a_word_ran.php">Random</a>
-                        <a class="dropdown-item" href="learn_a_word.php">Sequence</a>
+                        <a class="dropdown-item" href="learn_a_word_seq.php">Sequence</a>
                     </div>
                 </div>
             <?php endif; ?>

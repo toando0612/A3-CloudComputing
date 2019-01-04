@@ -37,6 +37,7 @@ if (!$_SESSION['is_logged_in']) {
 <?php require 'navBar.php'?>
 <br>
         <?php
+
             $conn = mysqli_connect("s3618861-db.cavq78vobfpn.ap-southeast-1.rds.amazonaws.com", "imhikarucat", "12345abcde", "tuanle");
             if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
@@ -46,29 +47,35 @@ if (!$_SESSION['is_logged_in']) {
             $row = mysqli_num_rows($result);
 
             $string = "0";
-            if (empty($_SESSION['myid'])){
-                $_SESSION['myid'] = array();
+            if (empty($_SESSION['seqid'])){
+                $_SESSION['seqid'] = array();
             }else{
-                if (count($_SESSION['myid'])== $row) {
-                    $_SESSION['myid'] = array();
+                if (count($_SESSION['seqid'])== $row) {
+                    $_SESSION['seqid'] = array();
+                }else {
+                    $list = array();
+                    $list = $_SESSION['seqid'];
+                    $string = implode(",", $list);
                 }
-                $list = array();
-                $list = $_SESSION['myid'];
-                $string = implode(",", $list);
             }
             $sql = "SELECT * FROM words having id NOT IN ($string) order by id limit 1";
-            print_r($sql);
             $data = mysqli_query($conn, $sql);
             if (mysqli_num_rows($data) > 0) {
                 $row = mysqli_fetch_assoc($data);
-                $id = $row["id"];
                 $word = $row["word"];
                 $vietnamese_meaning = $row["vietnamese_meaning"];
                 $similar_words = $row["similar_words"];
                 $example_one = $row["example_one"];
                 $example_two = $row["example_two"];
-                array_push($_SESSION['myid'], $id);
+                $id = $row['id'];
+                array_push($_SESSION['seqid'], $id);
                 echo "<div class='container'>";
+                if(isset($_SESSION['message']['text'])) {
+                    // Display message
+                    echo "<div class=\"alert alert-{$_SESSION['message']['type']}\">{$_SESSION['message']['text']}</div>";
+                    // Display message from session
+                    unset($_SESSION['message']['text']);
+                }
                 echo "<h1>Word: $word</h1>";
                 echo "<br>";
                 echo "<p>ID: $id</p>";
@@ -76,7 +83,8 @@ if (!$_SESSION['is_logged_in']) {
                 echo "<p>Similar words: $similar_words</p>";
                 echo "<p>Example 1: $example_one</p>";
                 echo "<p>Example 2: $example_two</p>";
-                echo "<a href='learn_a_word.php'>Learn another word</a>";
+                echo "<a href='quizzes.php'>Do a quiz !</a>";
+                echo "</div>";
                 echo "</div>";
             }
             mysqli_close($conn);
