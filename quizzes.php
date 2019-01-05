@@ -57,11 +57,16 @@ if (mysqli_num_rows($data) > 0) {
     $array = array();
     array_push($array, $correct);
     $_SESSION["correct"] = $correct;
+    $array_id = array();
+    array_push($array_id, $idword);
     for ($i = 1; $i <=3; $i++){
-        $sql = "SELECT * FROM words having id NOT IN ($idword) ORDER BY RAND() LIMIT 1";
+        $id_except = implode(",", $array_id);
+        $sql = "SELECT * FROM words having id NOT IN ($id_except) ORDER BY RAND() LIMIT 1";
         $result = mysqli_query($conn, $sql);
         $means = mysqli_fetch_assoc($result);
         $mean = $means["vietnamese_meaning"];
+        $newid = $means["id"];
+        array_push($array_id, $newid);
         array_push($array, $mean);
     }
     shuffle($array);
@@ -74,7 +79,6 @@ if (mysqli_num_rows($data) > 0) {
             unset($_SESSION['message']['text']);
         }
     echo "<h3>What is the meaning of $word?</h3>";
-        print_r($array)
     ?>
     <form action="actions/do_quizzes.php" method="POST">
         <div class="custom-control custom-radio custom-control-inline">
