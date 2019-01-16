@@ -32,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $row = mysqli_fetch_assoc($data);
             if (password_verify ($_POST["password_login"],  $row["password"])) {
                 $_SESSION['is_logged_in'] = true;
-
                 if ($row["is_admin"] == "admin") {
                     $_SESSION['is_admin_logged_in'] = true;
                 } else {
