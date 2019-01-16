@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($row["is_admin"] == "admin") {
                     $_SESSION['is_admin_logged_in'] = true;
                 } else {
+                    $_SESSION["learner_id"] = $row["id"];
                     $_SESSION['is_admin_logged_in'] = false;
                 }
                 mysqli_close($conn);

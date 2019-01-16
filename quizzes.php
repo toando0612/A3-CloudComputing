@@ -1,14 +1,11 @@
 <?php
-session_start();
+    session_start();
 
-if (!$_SESSION['is_logged_in']) {
-    header("Location: login.php");
-} else {
-    if ($_SESSION['is_admin_logged_in']) {
+    if (!$_SESSION['is_logged_in']) {
+        header("Location: login.php");
+    } elseif($_SESSION['is_admin_logged_in']) {
         header("Location: index.php");
     }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +43,8 @@ if (!$_SESSION['is_logged_in']) {
                     }else {
                         $list = array();
                         $list = $_SESSION['seqid'];
-                        $idword = end($list);
+                        $length = count($list);
+                        $idword = $list[$length-1];
                     }
                 }elseif ($_SESSION["checkmode"]=="ran"){
                     if (empty($_SESSION['ranid'])){
@@ -54,16 +52,16 @@ if (!$_SESSION['is_logged_in']) {
                     }else {
                         $list = array();
                         $list = $_SESSION['ranid'];
-                        $idword = end($list);
+                        $length = count($list);
+                        $idword = $list[$length-1];
                     }
-                }else{
-                    header("Location: index.php");
                 }
 
                 $sql = "SELECT * FROM words having id IN ($idword) limit 1";
                 $data = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($data) > 0) {
                     $row = mysqli_fetch_assoc($data);
+                    $word_id = $row['id'];
                     $word = $row["word"];
                     $correct = $row["vietnamese_meaning"];
                     $array = array();
@@ -91,6 +89,7 @@ if (!$_SESSION['is_logged_in']) {
                     }
                     echo "<h3>What is the meaning of $word?</h3>";
             ?>      <form action="actions/do_quizzes.php" method="POST">
+                        <input name="word_id" type="hidden" value="<?php echo $word_id ?>"/>
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" id="customRadioInline1" name="answer" value="<?php echo $array[0]; ?>" class="custom-control-input">
                             <label class="custom-control-label" for="customRadioInline1"><?php echo $array[0]; ?></label>
@@ -108,6 +107,7 @@ if (!$_SESSION['is_logged_in']) {
                             <label class="custom-control-label" for="customRadioInline4"><?php echo $array[3]; ?></label>
                         </div>
                         <button type="submit" class="btn btn-outline-primary" name="submit">Submit your answer</button>
+                        <button type="submit" class="btn btn-outline-danger" onclick="<?php $_SESSION['skip'] = true ?>"  >Skip</button>
                     </form>
                         <?php
                 }mysqli_close($conn);

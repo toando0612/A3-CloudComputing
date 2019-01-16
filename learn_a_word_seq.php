@@ -5,7 +5,10 @@
     } elseif($_SESSION['is_admin_logged_in']) {
         header("Location: index.php");
     }else{
-        $_SESSION["time_start"] = microtime(true);
+        if (!$_SESSION["is_recording"]){
+            $_SESSION["time_start"] = microtime(true);
+            $_SESSION["is_recording_seq"] = true;
+        }
     }
 
 ?>
